@@ -1,5 +1,6 @@
 #OGeek的NTR数据解析 Lzz&Xlxw
 #2018.9.27
+#1 Modify Code Issue
 #-----------------------------------------------------------------------------
 
 #Lib Import
@@ -20,12 +21,13 @@ def Data2OGeek(path):
     #Create OGeekData Structer
     Data = OGeekData()
     #Open TXT
-    File = open(path)
+    File = open(path,'rb')
     #Var For Json Index
     JsonIndex = 0
     for line in File:
         #Read Every Lines
-        TmpData = line.split('\t')
+        TmpBinary = line.decode('utf-8')
+        TmpData = TmpBinary.split('\t')
         TmpJson = TmpData[1]
         Data.prefix.append(TmpData[0])
         Data.title.append(TmpData[2])
@@ -45,7 +47,7 @@ def Data2OGeek(path):
 
 #Json Data Save To Json File
 def JsonDataSave(data,path):
-    with open(path+'Oggek.json','a') as outfile:
+    with open(path+'Oggek.json','w',encoding='utf-8') as outfile:
         json.dump(data,outfile,ensure_ascii=False)
         outfile.write('\n')
 
@@ -56,9 +58,9 @@ def Data2Mat(data,path):
     
 #Main Func
 def main():
-    OGeekDataSet = Data2OGeek('/Users/xulvxiaowei/Downloads/oppo_round1_vali_20180926.txt')
-    JsonDataSave(OGeekDataSet.query_prediction,'/Users/xulvxiaowei/Desktop/')
-    Data2Mat(OGeekDataSet,'/Users/xulvxiaowei/Desktop/')
+    OGeekDataSet = Data2OGeek('oppo_round1_vali_20180926.txt')
+    JsonDataSave(OGeekDataSet.query_prediction,'/')
+    Data2Mat(OGeekDataSet,'/')
     
 main()
 
