@@ -1,20 +1,12 @@
-# NeuronCare
-基于FPGA的癫痫预测平台设计
+# OGeek Contest
+OGeek算法挑战赛
+数据集地址: https://tianchi.aliyun.com/competition/information.htm?spm=5176.100067.5678.2.510271eexsk52S&raceId=231688
 
-### 填坑中(DOING)
+## 程序目录（填坑ing）
+* OGeekDataParser 用于解析官方所给数据集，并提供读写接口
 
->硬件
-> 完成度(30%)
->
->算法
-> 完成度(50%)
->
->软件
-> 完成度(10%)
 
-## 硬件设备
-### 设计电路图
-<div align=center><img width="600" height="400" src="http://ol7p21r3m.bkt.clouddn.com/CircuitBCI.png"/></div>
 
-### 原理性样机
-<div align=center><img width="600" height="400" src="http://ol7p21r3m.bkt.clouddn.com/%E5%AE%9E%E7%89%A9%E5%9B%BE.jpg??imageslim"/></div>
+
+
+
