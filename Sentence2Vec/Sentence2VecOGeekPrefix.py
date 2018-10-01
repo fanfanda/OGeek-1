@@ -1,4 +1,8 @@
-#Python Ver
+#OGeek中句子与向量转化 Lzz&Xlxw
+#Ver In 2018.10.1
+#eg.本代码作为示例对前缀进行了转化
+#使用的语料以及词嵌入向量为:sjl_weixin|Author:苏剑林|Skip-Gram, Huffman Softmax, 窗口大小 10, 最小词频 64, 迭代 10 次
+#-----------------------------------------------------------------------------
 
 #Import Lib
 import numpy as np
@@ -9,7 +13,7 @@ import scipy.io as sio
 import scipy.io as scio
 import time
 
-#词向量读取
+#词嵌入向量读取
 def load_embeddings(folder_path):
     """从 bcolz 加载 词/字 向量
 
@@ -40,7 +44,7 @@ def input_data(MatFile_path,JsonFile_path):
     prediction = json.load(JsonFile)
     return prefix, prediction, title, tag, label
 
-#分词后导出平均Prefix词向量
+#分词后导出平均Prefix句向量
 def Prefix2AVector(Prefix,Words,Embeddings):
     ReturnArray = np.zeros([1,256])
     TimeIndex   = 0
@@ -55,7 +59,7 @@ def Prefix2AVector(Prefix,Words,Embeddings):
     return ReturnArray[1:]
 
 
-#句子向向量转化    
+#句子 -> 向量转化    
 def PrefixConverter(Sentence,Words,Embeddings):
     ReturnArray = np.zeros([1,256])
     TmpSentence = Sentence.replace(' ','')
@@ -69,13 +73,17 @@ def PrefixConverter(Sentence,Words,Embeddings):
         else:
             TmpCount = TmpCount + 1
             ReturnArray = Embeddings[index] + ReturnArray
-    #得到词向量均值
+    #得到平均词向量均值
     return ReturnArray / TmpCount
+
+#保存句向量
+def Vecter2mat(Vecter,path):
+    sio.savemat(path+'PrefixVec.mat',{'PrefixVec':Vecter})
 
 def main():
     Words,Embeddings = load_embeddings('/Users/xulvxiaowei/Downloads/sjl_weixin/zh.256')
     Prefix, Prediction, Title, Tag, Label = input_data('OGeekData.mat','Ogeek.json')
     PrefixVecter = Prefix2AVector(Prefix,np.array(Words),np.array(Embeddings))
+    Vecter2mat(PrefixVecter,'/')
 
-  
 main()
