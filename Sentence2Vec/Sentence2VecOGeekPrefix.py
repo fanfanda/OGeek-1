@@ -13,6 +13,10 @@ import scipy.io as sio
 import scipy.io as scio
 import time
 
+#全局设定参数
+Params = [256,500]
+#Params = [词嵌入维度,每一次多少数据显示一次]
+
 #词嵌入向量读取
 def load_embeddings(folder_path):
     """从 bcolz 加载 词/字 向量
@@ -46,22 +50,22 @@ def input_data(MatFile_path,JsonFile_path):
 
 #分词后导出平均Prefix句向量
 def Prefix2AVector(Prefix,Words,Embeddings):
-    ReturnArray = np.zeros([len(Prefix),256])
+    ReturnArray = np.zeros([len(Prefix),Params[0]])
     TimeIndex   = 0
     Total       = len(Prefix)
     timeCount   = time.time()
     for i in range(0,len(Prefix)):
-        ReturnArray[TimeIndex] = PrefixConverter(Prefix[i],Words,Embeddings)
+        ReturnArray[TimeIndex] = SentenceConverter(Prefix[i],Words,Embeddings)
         TimeIndex = TimeIndex + 1
-        if TimeIndex % 500 == 0:
-            print('500 Prefixs has used 【{:.2f}】s,Rest 【{:.2f}】% Prefix'.format((time.time() - timeCount),100 - TimeIndex/Total))
+        if TimeIndex % Params[1] == 0:
+            print('{} Prefixs has used 【{:.2f}】s,Rest 【{:.2f}】% Prefix'.format(Params[1],(time.time() - timeCount),100 - TimeIndex/Total))
             timeCount   = time.time()
     return ReturnArray
 
 
 #句子 -> 向量转化    
-def PrefixConverter(Sentence,Words,Embeddings):
-    ReturnArray = np.zeros([1,256])
+def SentenceConverter(Sentence,Words,Embeddings):
+    ReturnArray = np.zeros([1,Params[0]])
     TmpSentence = Sentence.replace(' ','')
     Cutls = jieba.lcut(TmpSentence)
     TmpCount = 0
@@ -74,7 +78,7 @@ def PrefixConverter(Sentence,Words,Embeddings):
             TmpCount = TmpCount + 1
             ReturnArray = Embeddings[index] + ReturnArray
     #得到平均词向量均值
-    return ReturnArray / TmpCount
+    return ReturnArray / TmpCount  #NaN用于判定数据无效
     
 #保存句向量
 def Vecter2mat(Vecter,path):
