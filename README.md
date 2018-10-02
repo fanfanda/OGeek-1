@@ -6,6 +6,9 @@ OGeek算法挑战赛
 * OGeekDataParser 用于解析官方所给数据集，并提供读写接口[9.28]
 * Sentence2Vec    用于根据现有语料将所给句子转化为词嵌入向量矩阵[10.1]
 
+##引用
+* 词库来源 - 苏剑林 Github地址: https://github.com/bojone
+
 
 
 
