@@ -46,17 +46,17 @@ def input_data(MatFile_path,JsonFile_path):
 
 #分词后导出平均Prefix句向量
 def Prefix2AVector(Prefix,Words,Embeddings):
-    ReturnArray = np.zeros([1,256])
+    ReturnArray = np.zeros([len(Prefix),256])
     TimeIndex   = 0
     Total       = len(Prefix)
     timeCount   = time.time()
     for i in range(0,len(Prefix)):
+        ReturnArray[TimeIndex] = PrefixConverter(Prefix[i],Words,Embeddings)
         TimeIndex = TimeIndex + 1
         if TimeIndex % 500 == 0:
-            print('500 Prefix has used 【{:.2f}】s,Rest 【{:.2f}】% Prefix'.format((time.time() - timeCount),100 - TimeIndex/Total))
+            print('500 Prefixs has used 【{:.2f}】s,Rest 【{:.2f}】% Prefix'.format((time.time() - timeCount),100 - TimeIndex/Total))
             timeCount   = time.time()
-        np.append(ReturnArray,PrefixConverter(Prefix[i],Words,Embeddings),axis = 0)
-    return ReturnArray[1:]
+    return ReturnArray
 
 
 #句子 -> 向量转化    
@@ -75,15 +75,15 @@ def PrefixConverter(Sentence,Words,Embeddings):
             ReturnArray = Embeddings[index] + ReturnArray
     #得到平均词向量均值
     return ReturnArray / TmpCount
-
+    
 #保存句向量
 def Vecter2mat(Vecter,path):
     sio.savemat(path+'PrefixVec.mat',{'PrefixVec':Vecter})
 
 def main():
     Words,Embeddings = load_embeddings('/Users/xulvxiaowei/Downloads/sjl_weixin/zh.256')
-    Prefix, Prediction, Title, Tag, Label = input_data('OGeekData.mat','Ogeek.json')
+    Prefix, Prediction, Title, Tag, Label = input_data('/Users/xulvxiaowei/Documents/GitHub/OGeek/OGeekDataParser/OGeekData.mat','/Users/xulvxiaowei/Documents/GitHub/OGeek/OGeekDataParser/Ogeek.json')
     PrefixVecter = Prefix2AVector(Prefix,np.array(Words),np.array(Embeddings))
-    Vecter2mat(PrefixVecter,'/')
+    Vecter2mat(PrefixVecter,'')
 
 main()
