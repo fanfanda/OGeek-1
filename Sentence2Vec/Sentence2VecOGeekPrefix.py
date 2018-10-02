@@ -1,7 +1,8 @@
 #OGeek中句子与向量转化 Lzz&Xlxw
 #Ver In 2018.10.1
-#eg.本代码作为示例对前缀进行了转化
+#eg.本代码对前面解析得到的数据进行了词向量的转化
 #使用的语料以及词嵌入向量为:sjl_weixin|Author:苏剑林|Skip-Gram, Huffman Softmax, 窗口大小 10, 最小词频 64, 迭代 10 次
+#1.Bug Fix
 #-----------------------------------------------------------------------------
 
 #Import Lib
@@ -48,20 +49,20 @@ def input_data(MatFile_path,JsonFile_path):
     prediction = json.load(JsonFile)
     return prefix, prediction, title, tag, label
 
-#分词后导出平均Prefix句向量
-def Prefix2AVector(Prefix,Words,Embeddings):
-    ReturnArray = np.zeros([len(Prefix),Params[0]])
+
+#分词后导出平均句向量
+def Element2AVector(Element,Words,Embeddings,LeadStr='Element'):
+    ReturnArray = np.zeros([len(Element),Params[0]])
     TimeIndex   = 0
-    Total       = len(Prefix)
+    Total       = len(Element)
     timeCount   = time.time()
-    for i in range(0,len(Prefix)):
-        ReturnArray[TimeIndex] = SentenceConverter(Prefix[i],Words,Embeddings)
+    for i in range(0,len(Element)):
+        ReturnArray[TimeIndex] = SentenceConverter(Element[i],Words,Embeddings)
         TimeIndex = TimeIndex + 1
         if TimeIndex % Params[1] == 0:
-            print('{} Prefixs has used 【{:.2f}】s,Rest 【{:.2f}】% Prefix'.format(Params[1],(time.time() - timeCount),100 - TimeIndex/Total))
+            print('{} {}s has used 【{:.2f}】s,Rest 【{:.2f}】% {}'.format(Params[1],LeadStr,(time.time() - timeCount),100 - TimeIndex/Total,LeadStr))
             timeCount   = time.time()
     return ReturnArray
-
 
 #句子 -> 向量转化    
 def SentenceConverter(Sentence,Words,Embeddings):
@@ -82,12 +83,21 @@ def SentenceConverter(Sentence,Words,Embeddings):
     
 #保存句向量
 def Vecter2mat(Vecter,path):
-    sio.savemat(path+'PrefixVec.mat',{'PrefixVec':Vecter})
+    sio.savemat(path+'.mat',{'PrefixVec':Vecter})
 
 def main():
     Words,Embeddings = load_embeddings('/Users/xulvxiaowei/Downloads/sjl_weixin/zh.256')
     Prefix, Prediction, Title, Tag, Label = input_data('/Users/xulvxiaowei/Documents/GitHub/OGeek/OGeekDataParser/OGeekData.mat','/Users/xulvxiaowei/Documents/GitHub/OGeek/OGeekDataParser/Ogeek.json')
-    PrefixVecter = Prefix2AVector(Prefix,np.array(Words),np.array(Embeddings))
-    Vecter2mat(PrefixVecter,'')
+    Words = np.array(Words)
+    Embeddings = np.array(Embeddings)
+    #前缀转换为词嵌入
+    PrefixVecter = Element2AVector(Prefix,Words,Embeddings,'Prefix')
+    Vecter2mat(PrefixVecter,'PrefixVec')
+    #标题转换为词嵌入
+    TitleVecter = Element2AVector(Title,Words,Embeddings,'Title')
+    Vecter2mat(TitleVecter,'TitlefixVec')
+    #类别转换为词嵌入
+    TagVecter = Element2AVector(Tag,Words,Embeddings,'Tag')
+    Vecter2mat(TagVecter,'TagVec')
 
 main()
