@@ -138,7 +138,6 @@ def main():
     Prefix, Prediction, Title, Tag, Label = input_data('/Users/xulvxiaowei/Documents/GitHub/OGeek/OGeekDataParser/OGeekData.mat','/Users/xulvxiaowei/Documents/GitHub/OGeek/OGeekDataParser/Ogeek.json')
     Words = np.array(Words)
     Embeddings = np.array(Embeddings)
-    '''
     #前缀转换为词嵌入
     PrefixVecter = Element2AVector(Prefix,Words,Embeddings,'Prefix')
     Vecter2mat(PrefixVecter,'PrefixVec','PrefixVec')
@@ -148,8 +147,8 @@ def main():
     #类别转换为词嵌入
     TagVecter = Element2AVector(Tag,Words,Embeddings,'Tag')
     Vecter2mat(TagVecter,'TagVec','TagVec')
-    '''
     #预测转换为词嵌入
     PredictVec = Prediction2AVector(Prediction,Words,Embeddings)
     Vecter2mat(PredictVec,'RredictVec','RredictVec')
+    
 main()
