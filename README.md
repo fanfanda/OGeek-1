@@ -5,13 +5,14 @@ OGeek算法挑战赛
 ## 程序目录（填坑ing）
 * OGeekDataParser 用于解析官方所给数据集，并提供读写接口[9.28]
 * Sentence2Vec    用于根据现有语料将所给句子转化为词嵌入向量矩阵[10.1]
+* Tag_Split       用于创建一个小训练集，减少转化时间
 
 ## 引用
 * 词库来源 - 苏剑林 Github地址: https://github.com/bojone
 * 词库下载 - 链接:https://pan.baidu.com/s/1cz0vtOBOtgxsgnl_RY7QZg  密码:ivqv
 
 ## 备注
-* Sentence2Vec在将数据转换成句向量后，整一个训练集大概为52GB的内容，推荐做一个合适的小训练集进行训练
+* Sentence2Vec在将数据转换成句向量后，整一个训练集大概为52GB的内容，推荐用Tag_Split做一个合适的小训练集进行训练
 
 
 
