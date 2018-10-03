@@ -8,6 +8,10 @@ OGeek算法挑战赛
 
 ## 引用
 * 词库来源 - 苏剑林 Github地址: https://github.com/bojone
+* 词库下载 - 链接:https://pan.baidu.com/s/1cz0vtOBOtgxsgnl_RY7QZg  密码:ivqv
+
+## 备注
+* Sentence2Vec在将数据转换成句向量后，整一个训练集大概为52GB的内容，推荐做一个合适的小训练集进行训练
 
 
 
