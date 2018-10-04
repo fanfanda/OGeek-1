@@ -14,7 +14,7 @@ OGeek算法挑战赛
 ## 备注
 * Sentence2Vec在将数据转换成句向量后，整一个训练集大概为52GB的内容，推荐用Tag_Split做一个合适的小训练集进行训练
 * __开始搞特征模型了,如果BaseLine OK的话10号后放上来，停更一段__ [10.4]
-* 目前最高f1_score[0.65] By Random Forest
+* 目前最高f1_score[*] By Random Forest
 
 
 
