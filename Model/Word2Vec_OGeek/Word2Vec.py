@@ -52,7 +52,7 @@ def VecterTrain(Dimesion,Window,MinFreq,InTxtPath,ModelPath,VecterPath):
     print('Training Word2Vec.Waiting..')
     print('Use Max CPU:Total 【{}】'.format(multiprocessing.cpu_count()))
     model = Word2Vec(LineSentence(InTxtPath), size = Dimesion, window = Window, min_count = MinFreq, workers=multiprocessing.cpu_count())
-    peint('Training Over..Saving Model and Vecter.Waiting..')
+    print('Training Over..Saving Model and Vecter.Waiting..')
     #模型存储
     model.save(ModelPath)
     #词向量存储
@@ -60,7 +60,7 @@ def VecterTrain(Dimesion,Window,MinFreq,InTxtPath,ModelPath,VecterPath):
 
 def main():
     #对语料文件进行分词
-    ordSplit('Data_In.txt','Data_Split.txt',True)
+    WordSplit('Data_In.txt','Data_Split.txt',True)
     #对数据进行词向量训练
     VecterTrain(256,10,1,'Data_Split.txt','OGeek_WordModel.model','OGeek_WordVecter.vecter')
 
