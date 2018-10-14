@@ -59,8 +59,8 @@ def Data2Mat(data,path):
 #Main Func
 def main():
     OGeekDataSet = Data2OGeek('../../data/oppo/oppo_round1_vali_20180929.txt')
-    JsonDataSave(OGeekDataSet.query_prediction,'/')
-    Data2Mat(OGeekDataSet,'/')
+    JsonDataSave(OGeekDataSet.query_prediction,'./')
+    Data2Mat(OGeekDataSet,'./')
     
 main()
 
