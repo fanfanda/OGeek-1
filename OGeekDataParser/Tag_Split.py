@@ -123,7 +123,7 @@ def Data2Mat(path):
 
 def main():
     #读取Train的信息
-    Prefix,Prediction,Title,Tag,Label = input_data('OGeekData.mat','Ogeek.json')
+    Prefix,Prediction,Title,Tag,Label = input_data('OGeekData.mat','Oggek.json')
     #读取Mini Batch数量
     TagSplit(Tag,Label,Prefix,Prediction,Title)
     #存储变量
